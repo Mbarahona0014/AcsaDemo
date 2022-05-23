@@ -1,0 +1,25 @@
+﻿<CascadingValue Value="this">
+    <div id="@Id">
+        <!--LINKS PARA NAVEGAR POR CADA PAGINA-->
+        <!--<ul class="nav nav-pills nav-justified">
+        @foreach (var step in Steps)
+        {
+            <li id="step-@(StepsIndex(step)+1)" class="nav-item">
+                <a class="nav-link @((ActiveStep == step) ? "active" : "")" href="javascript: void(0)"
+                   @onclick="@(e=> SetActive(step))">@step.Name</a>
+            </li>
+        }
+        </ul>-->
+        <div id="container-fluid">
+            @ChildContent
+        </div>
+    </div>
+    <div class="btn-group-sm p-1">
+        <div class="float-left">
+            <button class="btn btn-secondary btn-sm" type="button" disabled="@(ActiveStepIx==0)" @onclick="GoBack">&lt; Anterior</button>
+        </div>
+        <div class="float-right">
+            <button class="btn btn-secondary btn-sm" type="@(IsLastStep ? "submit" : "button")" @onclick="GoNext">@(IsLastStep ? "Finalizar" : "Siguiente >")</button>
+        </div>
+    </div>
+</CascadingValue>

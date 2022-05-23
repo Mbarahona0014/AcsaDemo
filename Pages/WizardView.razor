@@ -1,0 +1,66 @@
+﻿@page "/wizard"
+
+@using AcsaDemo.Components
+@using AcsaDemo.Model
+
+<section class="text-center m-2 p-2">
+    <div class="row">
+        <div class="col-4">
+            <img src="/Resources/product.png" class="img-fluid" alt="" />
+        </div>
+        <div class="col-8">
+            <h6>Formulario seguro medico PSM Internacional</h6>
+        </div>
+    </div>
+</section>
+
+<Wizard Id="DemoWizard">
+    <WizardStep Name="First Step">
+        <div class="card-no-border text-center m-2 p-2">
+            <div class="card-body">
+                <h5 class="card-title">Bienvenido al sistema de aceptacion digital ACSA</h5>
+                <p>Podra completar y firmar los siguientes docuemtnos para la emision de su seguro</p>
+                <ol class="list-unstyled">
+                    <li>Solicitud de Seguro</li>
+                    <li>Declaracion Jurada</li>
+                    <li>Ficha Integral</li>
+                    <li>Oferta de Seguro</li>
+                </ol>
+            </div>
+        </div>
+    </WizardStep>
+    <WizardStep Name="Second Step">
+        <EditForm Model="_inter" OnSubmit="enviar">
+            <div class="form-group row">
+                <!--DETALLES DE INTERMEDIARIO O CLIENTE-->
+                <label for="nit" class="col-md-1">Nit:</label>
+                <InputText id="nit" class="form-control" @bind-Value="_inter.nit" @oninput="recibir"></InputText>
+                <label for="correo" class="col-md-1">Correo:</label>
+                <InputText id="correo" class="form-control" @bind-Value="_inter.correo"></InputText>
+                <!--DETALLES DE LA OFERTA SEGUN CLIENTE-->
+                <h5>Detalles de la oferta:</h5>
+                <label for="titular">Asegurado titular: </label>
+                <InputText id="titular" class="form-control" @bind-Value="_oferta.conyuge"></InputText>
+                <label for="titular">Fecha de nacimiento conyuge: </label>
+                <InputDate id="titular" class="form-control" @bind-Value="_oferta.fecha_nac_conyuge"></InputDate>
+                <label for="titular">No de hijos a asegurar: </label>
+                <InputNumber id="titular" class="form-control" @bind-Value="_oferta.n_hijos"></InputNumber>
+                <label for="titular">Suma de vida para titular: </label>
+                <InputNumber id="titular" class="form-control" @bind-Value="_oferta.suma_titular"></InputNumber>
+                <label for="titular">Suma de vida para conyuge: </label>
+                <InputNumber id="titular" class="form-control" @bind-Value="_oferta.suma_conyuge"></InputNumber>
+                <label for="titular">Valor primera cuota: </label>
+                <InputNumber id="titular" class="form-control" @bind-Value="_oferta.valor_pcuota"></InputNumber>
+                <label for="titular">Valor cuota sucesiva: </label>
+                <InputNumber id="titular" class="form-control" @bind-Value="_oferta.valor_csucesiva"></InputNumber>
+            </div>
+        </EditForm>
+    </WizardStep>
+</Wizard>
+
+@code {
+    private Intermediario _inter { get; set; } = new Intermediario();
+    private Oferta _oferta { get; set; } = new Oferta();
+    private void enviar() { }
+    private void recibir(){ }
+}
