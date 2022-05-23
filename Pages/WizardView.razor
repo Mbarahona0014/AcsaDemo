@@ -31,14 +31,16 @@
     </WizardStep>
     <WizardStep Name="Second Step">
         <EditForm Model="_inter" OnSubmit="enviar">
+            <DataAnnotationsValidator></DataAnnotationsValidator>
             <div class="form-group row">
                 <!--DETALLES DE INTERMEDIARIO O CLIENTE-->
-                <label for="nit" class="col-md-1">Nit:</label>
+                <label for="nit">Nit:</label>
                 <InputText id="nit" class="form-control" @bind-Value="_inter.nit" @oninput="recibir"></InputText>
-                <label for="correo" class="col-md-1">Correo:</label>
+                <ValidationMessage For="(()=>_inter.nit)" ></ValidationMessage>
+                <label for="correo">Correo:</label>
                 <InputText id="correo" class="form-control" @bind-Value="_inter.correo"></InputText>
+
                 <!--DETALLES DE LA OFERTA SEGUN CLIENTE-->
-                <h5>Detalles de la oferta:</h5>
                 <label for="titular">Asegurado titular: </label>
                 <InputText id="titular" class="form-control" @bind-Value="_oferta.conyuge"></InputText>
                 <label for="titular">Fecha de nacimiento conyuge: </label>
@@ -59,8 +61,13 @@
 </Wizard>
 
 @code {
+    private string? nit;
     private Intermediario _inter { get; set; } = new Intermediario();
     private Oferta _oferta { get; set; } = new Oferta();
     private void enviar() { }
-    private void recibir(){ }
+    private void recibir(ChangeEventArgs e)
+    {
+        nit = e?.Value?.ToString();
+
+    }
 }
