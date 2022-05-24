@@ -14,12 +14,12 @@
             @ChildContent
         </div>
     </div>
-    <div class="btn-group-sm p-1">
+    <div class="btn-group-sm p-1 mt-5">
         <div class="float-left">
-            <button class="btn btn-secondary btn-sm" type="button" disabled="@(ActiveStepIx==0)" @onclick="GoBack">&lt; Anterior</button>
+            <button class="btn btn-primary btn-lg" type="button" disabled="@(ActiveStepIx==0)" @onclick="GoBack">Anterior</button>
         </div>
         <div class="float-right">
-            <button class="btn btn-secondary btn-sm" type="@(IsLastStep ? "submit" : "button")" @onclick="GoNext">@(IsLastStep ? "Finalizar" : "Siguiente >")</button>
+            <button class="btn btn-primary btn-lg" type="@(IsLastStep ? "submit" : "button")" @onclick="GoNext">@(IsLastStep ? "Finalizar" : "Siguiente")</button>
         </div>
     </div>
 </CascadingValue>

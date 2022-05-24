@@ -2,29 +2,31 @@
 
 @using AcsaDemo.Components
 @using AcsaDemo.Model
-
-<section class="text-center m-2 p-2">
-    <div class="row">
-        <div class="col-4">
-            <img src="/Resources/product.png" class="img-fluid" alt="" />
-        </div>
-        <div class="col-8">
-            <h6>Formulario seguro medico PSM Internacional</h6>
-        </div>
+<link href="WizardView.styles.css" rel="stylesheet">
+<section class="text-center colorEncabezado">
+    <div class="row mb-4">
+            <img src="/Resources/logoAcsa.svg" class="img-fluid col-6" alt="" />
+    </div>
+    <div class="row col-12 mb-4">
+        <h6>Formulario seguro medico</h6>
+        <h2>PSM Internacional</h2>
     </div>
 </section>
 
 <Wizard Id="DemoWizard">
     <WizardStep Name="First Step">
-        <div class="card-no-border text-center m-2 p-2">
-            <div class="card-body">
-                <h5 class="card-title">Bienvenido al sistema de aceptacion digital ACSA</h5>
-                <p>Podra completar y firmar los siguientes docuemtnos para la emision de su seguro</p>
-                <ol class="list-unstyled">
-                    <li>Solicitud de Seguro</li>
-                    <li>Declaracion Jurada</li>
-                    <li>Ficha Integral</li>
-                    <li>Oferta de Seguro</li>
+        <div class="card-no-border mb-3">
+            <div class="card-body p-0">
+                <div class="card-title mb-3">
+                    <h5 class="colorEncabezado">Bienvenido al sistema de aceptacion digital ACSA</h5>
+                    <br />
+                    <p>Podra completar y firmar los siguientes documentos para la emision de su seguro</p>
+                </div>
+                <ol class="list-unstyled colorLista">
+                    <li>&#8226; Solicitud de Seguro</li>
+                    <li>&#8226; Declaracion Jurada</li>
+                    <li>&#8226; Ficha Integral</li>
+                    <li>&#8226; Oferta de Seguro</li>
                 </ol>
             </div>
         </div>
