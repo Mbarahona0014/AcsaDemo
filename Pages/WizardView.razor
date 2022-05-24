@@ -65,27 +65,31 @@
 
 @code {
     private string? nit;
-    private bool encontrado = false;
-    private Intermediario _inter { get; set; } = new Intermediario();
+
+    private Intermediario _inter = new Intermediario();
+    public Intermediario vacio = new Intermediario();
     private Intermediario[] todos;
     private Oferta _oferta { get; set; } = new Oferta();
+
     protected override async Task OnInitializedAsync()
     {
         todos = await Http.GetFromJsonAsync<Intermediario[]>("sample-data/json.json");
     }
+
     private void enviar() { }
     private void recibir(ChangeEventArgs e)
     {
+        bool encontrado = false;
         nit = e?.Value?.ToString();
         foreach (var intermediarios in todos) {
 
             if (nit.Equals(intermediarios.nit))
             {
-                _inter = intermediarios;
+                _inter.actualizarDatos(intermediarios);
                 encontrado = true;
             }
             else if(!encontrado){
-                _inter = null;
+                _inter.actualizarDatos(vacio);
             }
         }
 
