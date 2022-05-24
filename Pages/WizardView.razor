@@ -2,10 +2,11 @@
 
 @using AcsaDemo.Components
 @using AcsaDemo.Model
-<link href="WizardView.styles.css" rel="stylesheet">
+@inject HttpClient Http
+
 <section class="text-center colorEncabezado">
     <div class="row mb-4">
-            <img src="/Resources/logoAcsa.svg" class="img-fluid col-6" alt="" />
+        <img src="/Resources/logoAcsa.svg" class="img-fluid col-6" alt="" />
     </div>
     <div class="row col-12 mb-4">
         <h6>Formulario seguro medico</h6>
@@ -32,31 +33,31 @@
         </div>
     </WizardStep>
     <WizardStep Name="Second Step">
+
         <EditForm Model="_inter" OnSubmit="enviar">
             <DataAnnotationsValidator></DataAnnotationsValidator>
-            <div class="form-group row">
+            <div class="form-group">
                 <!--DETALLES DE INTERMEDIARIO O CLIENTE-->
-                <label for="nit">Nit:</label>
-                <InputText id="nit" class="form-control" @bind-Value="_inter.nit" @oninput="recibir"></InputText>
-                <ValidationMessage For="(()=>_inter.nit)" ></ValidationMessage>
-                <label for="correo">Correo:</label>
-                <InputText id="correo" class="form-control" @bind-Value="_inter.correo"></InputText>
+                <label for="nit" class="labelDatos">Indicanos tu NIT o correo electronico:</label>
+                <InputText id="nit" class="form-control inputEntrada" @bind-Value="_inter.nit" @oninput="recibir"></InputText>
+                <ValidationMessage For="(()=>_inter.nit)"></ValidationMessage>
 
                 <!--DETALLES DE LA OFERTA SEGUN CLIENTE-->
-                <label for="titular">Asegurado titular: </label>
-                <InputText id="titular" class="form-control" @bind-Value="_oferta.conyuge"></InputText>
-                <label for="titular">Fecha de nacimiento conyuge: </label>
-                <InputDate id="titular" class="form-control" @bind-Value="_oferta.fecha_nac_conyuge"></InputDate>
-                <label for="titular">No de hijos a asegurar: </label>
-                <InputNumber id="titular" class="form-control" @bind-Value="_oferta.n_hijos"></InputNumber>
-                <label for="titular">Suma de vida para titular: </label>
-                <InputNumber id="titular" class="form-control" @bind-Value="_oferta.suma_titular"></InputNumber>
-                <label for="titular">Suma de vida para conyuge: </label>
-                <InputNumber id="titular" class="form-control" @bind-Value="_oferta.suma_conyuge"></InputNumber>
-                <label for="titular">Valor primera cuota: </label>
-                <InputNumber id="titular" class="form-control" @bind-Value="_oferta.valor_pcuota"></InputNumber>
-                <label for="titular">Valor cuota sucesiva: </label>
-                <InputNumber id="titular" class="form-control" @bind-Value="_oferta.valor_csucesiva"></InputNumber>
+
+                <label class="labelDatos" for="titular">Asegurado titular: </label>
+                <InputText id="titular" class="form-control inputDatos" @bind-Value="_inter.nombre"></InputText>
+                <label class="labelDatos" for="titular">Fecha de nacimiento conyuge: </label>
+                <InputDate id="titular" class="form-control inputDatos" @bind-Value="_inter.fecha_nac_conyuge"></InputDate>
+                <label class="labelDatos" for="titular">No de hijos a asegurar: </label>
+                <InputNumber id="titular" class="form-control inputDatos" @bind-Value="_inter.n_hijos"></InputNumber>
+                <label class="labelDatos" for="titular">Suma de vida para titular: </label>
+                <InputNumber id="titular" class="form-control inputDatos" @bind-Value="_inter.suma_titular"></InputNumber>
+                <label class="labelDatos" for="titular">Suma de vida para conyuge: </label>
+                <InputNumber id="titular" class="form-control inputDatos" @bind-Value="_inter.suma_conyuge"></InputNumber>
+                <label class="labelDatos" for="titular">Valor primera cuota: </label>
+                <InputNumber id="titular" class="form-control inputDatos" @bind-Value="_inter.valor_pcuota"></InputNumber>
+                <label class="labelDatos" for="titular">Valor cuota sucesiva: </label>
+                <InputNumber id="titular" class="form-control inputDatos" @bind-Value="_inter.valor_csucesiva"></InputNumber>
             </div>
         </EditForm>
     </WizardStep>
@@ -64,12 +65,29 @@
 
 @code {
     private string? nit;
+    private bool encontrado = false;
     private Intermediario _inter { get; set; } = new Intermediario();
+    private Intermediario[] todos;
     private Oferta _oferta { get; set; } = new Oferta();
+    protected override async Task OnInitializedAsync()
+    {
+        todos = await Http.GetFromJsonAsync<Intermediario[]>("sample-data/json.json");
+    }
     private void enviar() { }
     private void recibir(ChangeEventArgs e)
     {
         nit = e?.Value?.ToString();
+        foreach (var intermediarios in todos) {
+
+            if (nit.Equals(intermediarios.nit))
+            {
+                _inter = intermediarios;
+                encontrado = true;
+            }
+            else if(!encontrado){
+                _inter = null;
+            }
+        }
 
     }
 }

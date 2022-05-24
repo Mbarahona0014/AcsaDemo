@@ -1,0 +1,41 @@
+[
+  {
+    "nombre": "Ada Maria Medina Lopez",
+    "correo": "AMedina@gmail.com",
+    "nit": "0614-250689-187-3",
+    "fecha_nac": "25/06/89",
+    "conyuge": "si",
+    "fecha_nac_conyuge": "09/08/89",
+    "n_hijos": "1",
+    "suma_titular": 35000,
+    "suma_conyugue": 25000,
+    "valor_pcuota": 100.65,
+    "valor_csucesiva": 90.88
+  },
+  {
+    "nombre": "Ada Maria Medina Perez",
+    "correo": "AMedina@gmail.com",
+    "nit": "0614-250689-187-2",
+    "fecha_nac": "25/06/89",
+    "conyuge": "si",
+    "fecha_nac_conyuge": "09/08/89",
+    "n_hijos": "1",
+    "suma_titular": 35000,
+    "suma_conyugue": 25000,
+    "valor_pcuota": 100.65,
+    "valor_csucesiva": 90.88
+  },
+  {
+    "nombre": "Ada Maria Medina Castro",
+    "correo": "AMedina@gmail.com",
+    "nit": "0614-250689-187-1",
+    "fecha_nac": "25/06/89",
+    "conyuge": "si",
+    "fecha_nac_conyuge": "09/08/89",
+    "n_hijos": "1",
+    "suma_titular": 35000,
+    "suma_conyugue": 25000,
+    "valor_pcuota": 100.65,
+    "valor_csucesiva": 90.88 
+  }
+]

@@ -41,6 +41,21 @@ a, .btn-link {
 .colorLista {
     color: #12B9DC;
 }
+.inputEntrada {
+    border: solid 2px #FFCC00;
+    color: #006EB6;
+    margin: 0.3rem;
+}
+.inputDatos {
+    border: none;
+    color: #006EB6;
+    font-weight: 900;
+    margin: 0.3rem;
+}
+.labelDatos {
+    color: #5C6670;
+    margin: 0.3rem;
+}
 
 #blazor-error-ui {
     background: lightyellow;
