@@ -46,7 +46,8 @@ a, .btn-link {
     color: #006EB6;
     margin: 0.3rem;
 }
-.inputDatos {
+.inputDatos:read-only{
+    background-color:white;
     border: none;
     color: #006EB6;
     font-weight: 900;

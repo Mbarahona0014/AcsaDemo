@@ -2,8 +2,11 @@
 
 @using AcsaDemo.Components
 @using AcsaDemo.Model
-@inject HttpClient Http
+@using System.Text.Json
+@using System.Text.Json.Serialization;
 
+@inject HttpClient Http
+  
 <section class="text-center colorEncabezado">
     <div class="row mb-4">
         <img src="/Resources/logoAcsa.svg" class="img-fluid col-6" alt="" />
@@ -45,50 +48,70 @@
                 <!--DETALLES DE LA OFERTA SEGUN CLIENTE-->
 
                 <label class="labelDatos" for="titular">Asegurado titular: </label>
-                <InputText id="titular" class="form-control inputDatos" @bind-Value="_inter.nombre"></InputText>
+                <InputText id="titular" class="form-control inputDatos" readonly @bind-Value="_inter.nombre"></InputText>
                 <label class="labelDatos" for="titular">Fecha de nacimiento conyuge: </label>
-                <InputDate id="titular" class="form-control inputDatos" @bind-Value="_inter.fecha_nac_conyuge"></InputDate>
+                <InputText readonly id="titular" class="form-control inputDatos" @bind-Value="_inter.fecha_nac_conyuge"></InputText>
                 <label class="labelDatos" for="titular">No de hijos a asegurar: </label>
-                <InputNumber id="titular" class="form-control inputDatos" @bind-Value="_inter.n_hijos"></InputNumber>
+                <InputNumber readonly id="titular" class="form-control inputDatos" @bind-Value="_inter.n_hijos"></InputNumber>
                 <label class="labelDatos" for="titular">Suma de vida para titular: </label>
-                <InputNumber id="titular" class="form-control inputDatos" @bind-Value="_inter.suma_titular"></InputNumber>
+                <InputNumber readonly id="titular" class="form-control inputDatos" @bind-Value="_inter.suma_titular"></InputNumber>
                 <label class="labelDatos" for="titular">Suma de vida para conyuge: </label>
-                <InputNumber id="titular" class="form-control inputDatos" @bind-Value="_inter.suma_conyuge"></InputNumber>
+                <InputNumber readonly id="titular" class="form-control inputDatos" @bind-Value="_inter.suma_conyuge"></InputNumber>
                 <label class="labelDatos" for="titular">Valor primera cuota: </label>
-                <InputNumber id="titular" class="form-control inputDatos" @bind-Value="_inter.valor_pcuota"></InputNumber>
+                <InputNumber readonly id="titular" class="form-control inputDatos" @bind-Value="_inter.valor_pcuota"></InputNumber>
                 <label class="labelDatos" for="titular">Valor cuota sucesiva: </label>
-                <InputNumber id="titular" class="form-control inputDatos" @bind-Value="_inter.valor_csucesiva"></InputNumber>
+                <InputNumber readonly id="titular" class="form-control inputDatos" @bind-Value="_inter.valor_csucesiva"></InputNumber>
             </div>
         </EditForm>
     </WizardStep>
 </Wizard>
 
 @code {
-    private string? nit;
 
+    private string? nit;
     private Intermediario _inter = new Intermediario();
     public Intermediario vacio = new Intermediario();
-    private Intermediario[] todos;
+    
+    /*
+    private string searchstring;
+    HttpRequestMessage requestMessage;
+    HttpResponseMessage responseMessage;
+    HttpClient htp;
+    List<Intermediario> todos;
     private Oferta _oferta { get; set; } = new Oferta();
+    */
 
+    private Intermediario[] todos;
     protected override async Task OnInitializedAsync()
     {
-        todos = await Http.GetFromJsonAsync<Intermediario[]>("sample-data/json.json");
+        /*htp = new HttpClient();
+        requestMessage = new HttpRequestMessage
+        {
+            Method = HttpMethod.Get,
+            RequestUri = new Uri("http://192.168.99.121:8084/api/contratantes")
+        };
+        responseMessage = await htp.SendAsync(requestMessage);
+        todos = JsonSerializer.Deserialize<List<Intermediario>>(await responseMessage.Content.ReadAsStringAsync());*/
+
+        todos = await Http.GetFromJsonAsync<Intermediario[]>("http://192.168.99.121:8084/api/contratantes");
     }
+
+
 
     private void enviar() { }
     private void recibir(ChangeEventArgs e)
     {
         bool encontrado = false;
         nit = e?.Value?.ToString();
-        foreach (var intermediarios in todos) {
-
+        foreach (var intermediarios in todos)
+        {
             if (nit.Equals(intermediarios.nit))
             {
                 _inter.actualizarDatos(intermediarios);
                 encontrado = true;
             }
-            else if(!encontrado){
+            else if (!encontrado)
+            {
                 _inter.actualizarDatos(vacio);
             }
         }
